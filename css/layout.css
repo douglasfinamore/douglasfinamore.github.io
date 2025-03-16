@@ -1,0 +1,501 @@
+﻿/* ======== PRESETS ======== */
+
+/* === FONTS === */
+/* Lora (Primary font for body text) */
+@font-face {
+    font-family: 'Lora';
+    src: url('../assets/fonts/Lora-VariableFont_wght.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Lora';
+    src: url('../assets/fonts/Lora-Italic-VariableFont_wght.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Quattrocento Sans (Headings) */
+@font-face {
+    font-family: 'Quattrocento Sans';
+    src: url('../assets/fonts/QuattrocentoSans-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Quattrocento Sans';
+    src: url('../assets/fonts/QuattrocentoSans-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Quattrocento Sans';
+    src: url('../assets/fonts/QuattrocentoSans-Italic.woff2') format('woff2');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Quattrocento Sans';
+    src: url('../assets/fonts/QuattrocentoSans-BoldItalic.woff2') format('woff2');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Cairo (Website titles only) */
+@font-face {
+    font-family: 'Cairo';
+    src: url('../assets/fonts/Cairo-VariableFont_slnt,wght.woff2') format('woff2');
+    font-weight: 200 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* === CSS VARIABLES === */
+:root {
+    /* Fontes */
+    --font-body: 'Lora', serif; /* Fonte para o corpo do texto */
+    --font-title: 'Quattrocento Sans', sans-serif; /* Fonte para títulos */
+    --font-title-alt: 'Cairo', sans-serif; /* Fonte alternativa para títulos */
+    /* Cores */
+    --bg-light: #EEEEEE;
+    --text-primary: #31363F;
+    --dark-bg: #222831;
+    --accent-primary: #76ABAE;
+    --accent-secondary: #2c5f8a;
+    --text-secondary: #444;
+    --border-light: #eeeeee;
+    /* Espaçamento */
+    --spacing-base: 1rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --sidebar-width: min(480px, 40%);
+    /* Tamanhos de Fonte */
+    --font-size-base: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-sm: 0.875rem;
+}
+
+/* ========================= */
+
+/* ======== MAIN BODY ======== */
+
+/* === General style === */
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-light);
+    color: var(--text-primary);
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    overflow-x: hidden;
+    font-size: var(--font-size-base);
+}
+
+/* Headings: Quattrocento Sans */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--dark-bg);
+    font-family: var(--font-title);
+    font-weight: 700;
+}
+
+/* Italics/Bold for Lora */
+em, i {
+    font-style: italic; /* Inherits Lora's italic */
+}
+
+strong {
+    font-weight: 700; /* Inherits Lora's bold */
+}
+
+/* === GLOBAL STYLES IN .content === */
+.content {
+    font-family: var(--font-body); /* Usando a variável para a fonte do corpo */
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin-left: calc(var(--sidebar-width) + 4 * var(--spacing-xl));
+    margin-right: calc(4 * var(--spacing-xl));
+    /* margin-top: 40px;  Should be enough to avoid the hamburguer going over the text in mobiles */
+    padding: var(--spacing-base) calc(var(--spacing-base) * 2.5);
+    hyphens: auto;
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    justify-content: center;
+    align-items: stretch;
+    min-height: 100vh;
+}
+
+
+    /* Títulos dentro de .content */
+    .content h1,
+    .content h2,
+    .content h3,
+    .content h4,
+    .content h5,
+    .content h6 {
+        font-family: var(--font-title); /* Usando a variável para a fonte dos títulos */
+        font-weight: 700;
+        color: var(--dark-bg);
+        margin-bottom: 1rem;
+    }
+
+    /* Links dentro de .content */
+    .content a {
+        color: var(--accent-primary);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+        .content a:hover {
+            color: var(--accent-secondary);
+            text-decoration: underline;
+        }
+
+    /* === Blocks === */
+    .content .block {
+        margin-bottom: 2.5rem;
+    }
+
+    /* Títulos alternativos */
+    .content .h2-alt,
+    .content .h3-alt,
+    .content .h4-alt {
+        font-family: var(--font-title); /* Usando a variável para a fonte alternativa */
+        color: var(--accent-secondary);
+        border-bottom: 2px solid var(--accent-primary);
+        padding-bottom: 0.5rem;
+        padding-top: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .content .h2-alt {
+        font-size: 1.4rem;
+    }
+
+    .content .h3-alt {
+        font-size: 1.2rem;
+    }
+
+    .content .h4-alt {
+        font-size: 1rem;
+    }
+
+    /* Títulos e Subtítulos */
+    .content .block-header {
+        display: block !important;
+        align-items: baseline; /* Alinha os itens pela linha de base */
+        gap: 0.5rem; /* Espaçamento entre o título e o nome da revista */
+        margin-bottom: 0.5rem;
+        text-align: left;
+    }
+
+    .content .block-title {
+        display: inline;
+        font-family: var(--font-title);
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 0; /* Remove margem padrão do h3 */
+        margin-right: 0.5rem; /* Espaço entre título e subtítulo */
+        hyphens: auto; /* Hifenização automática */
+        word-break: break-word; /* Quebra palavras longas */
+        text-align: left; 
+        text-align-last: left; 
+    }
+
+    .content .block-title-alt {
+        display: inline;
+        font-family: var(--font-title-alt);
+        color: var(--text-secondary);
+        font-size: 0.95em;
+        margin: 0; /* Remove margem padrão do p */
+        font-style: italic; /* Adiciona itálico para diferenciar */
+        font-weight: normal; /* Remove o bold */
+        white-space: nowrap; /* Mantém o subtítulo em uma linha */
+        hyphens: auto; /* Hifenização automática */
+        word-break: break-word; /* Quebra palavras longas */
+        text-align: left;
+        text-align-last: left;
+    }
+
+    .content .block-subtitle {
+        font-family: var(--font-body); /* Usando a variável para a fonte do corpo */
+        color: var(--text-secondary);
+        font-size: 0.95em;
+        margin: 0 0;
+        hyphens: auto; /* Hifenização automática */
+        word-break: break-word; /* Quebra palavras longas */
+    }
+
+    .content .block-subtitle-alt {
+        font-family: var(--font-title); /* Usando a variável para a fonte dos títulos */
+        font-size: 0.9em;
+        margin: 0.3rem 0 0.8rem;
+        hyphens: auto; /* Hifenização automática */
+        word-break: break-word; /* Quebra palavras longas */
+    }
+
+        .content .block-subtitle-alt a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+            .content .block-subtitle-alt a:hover {
+                color: var(--accent-secondary);
+                text-decoration: underline;
+            }
+
+    /* Descrição do bloco */
+    .content .block-description {
+        margin: 0.5rem 0 1.5rem 1.5rem;
+        color: var(--text-secondary);
+        font-size: 0.95em;
+        line-height: 1.5;
+    }
+
+/* ======== SIDEBAR ======== */
+
+/* === Layout === */
+.sidenav {
+    height: 100vh; /* Ocupar toda a altura da tela */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    background: url('../assets/images/sidebar-bg.jpg') no-repeat center center;
+    background-size: cover;
+    overflow-x: hidden;
+    overflow-y: visible;
+    padding: var(--spacing-base);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px; /* Sombra para a direita */
+}
+
+.profile-pic {
+    width: 70%; /* Prevent overflow on small screens */
+    height: auto; /* Maintain aspect ratio */
+    aspect-ratio: 1; /* Ensure perfect circle */
+    border-radius: 50%;
+    border: 3px solid white;
+    margin: calc(4*var(--spacing-base)) auto var(--spacing-base);
+}
+
+/* Sidebar Title */
+.sidenav h1 {
+    font-family: var(--font-title-alt); /* Override heading font */
+    color: var(--bg-light);
+    margin: var(--spacing-xl) 0 var(--spacing-xl) 0;
+}
+
+/* Sidebar Links */
+.sidebar-links {
+    display: flex;
+    justify-content: space-around;
+    margin-top: var(--spacing-base);
+    width: 100%;
+}
+
+.sidenav a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px; 
+    height: 50px; 
+    padding: 0;
+    background-color: var(--dark-bg);
+    color: var(--bg-light);
+    margin: 2px 0;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: background 0.3s ease, color 0.3s ease, outline 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+    .sidenav a:focus-visible {
+        outline: 2px solid var(--accent-primary);
+        outline-offset: 3px;
+    }
+
+    .sidenav a:hover {
+        background-color: var(--accent-primary);
+        color: var(--dark-bg);
+        transform: scale(1.05);
+    }
+
+    .sidenav a i {
+        color: var(--bg-light);
+        font-size: 24px;
+        line-height: 1;
+    }
+
+    .sidenav a:hover i {
+        color: var(--dark-bg);
+    }
+
+/* === Tooltips for sidebar links === */
+.sidebar-links a {
+    position: relative;
+    font-family: var(--font-title-alt);
+}
+
+    .sidebar-links a::after {
+        content: attr(title);
+        position: absolute;
+        left: 50%;
+        background: var(--text-primary);
+        color: var(--bg-light);
+        padding: 8px 12px;
+        font-size: 14px;
+        font-family: var(--font-title);
+        border-radius: 8px;
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+        pointer-events: none;
+        z-index: 1000;
+        bottom: calc(100% + 8px);
+        transform: translateX(-50%) translateY(20px);
+    }
+
+.sidebar-links.second-row a::after {
+    bottom: auto; /* Remove a posição padrão */
+    top: calc(100% + 8px);
+    transform: translateX(-50%) translateY(-20px);
+    z-index: 1001;
+}
+
+.sidebar-links a:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.sidebar-links a:hover::after {
+    background: var(--accent-primary);
+    color: var(--dark-bg);
+}
+
+/* === Footer === */
+.footer-content {
+    font-family: var(--font-title);
+    text-align: left;
+    padding-left: 10px;
+    margin-left:10px;
+    color: var(--accent-primary);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+    padding: var(--spacing-sm) 0;
+}
+
+.footer-link {
+    display: inline;
+    text-decoration: underline;
+    font-size: 14px;
+    color: inherit;
+}
+.footer-content a {
+    display: inline; /* Garante que seja tratado como um link normal */
+    text-decoration: underline; /* Mantém a aparência de link */
+    font-size: 14px; /* Ajuste conforme necessário */
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    background: none !important;
+}
+
+    .footer-content a:hover {
+        color: var(--accent-secondary);
+        text-decoration: underline;
+    }
+
+/* ========================= */
+
+/* ======== RESPONSIVE DESIGN ======== */
+
+#mobile-menu-toggle {
+    display: none;
+    position: fixed;
+    top: var(--spacing-sm);
+    left: var(--spacing-sm);
+    background: var(--dark-bg);
+    color: var(--bg-light);
+    border: none;
+    padding: var(--spacing-xs);
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* Abaixo de 768px: esconder a barra lateral e mostrar o botão de menu */
+@media (max-width: 767px) {
+    .sidenav {
+        display: none; /* Esconder a barra lateral */
+    }
+
+        .sidenav.active {
+            display: flex; /* Mostrar quando ativa */
+        }
+
+     /* Reduzir tamanho dos botões e tooltips apenas em mobile */
+     .sidenav.active .sidebar-links a {
+         width: 40px; /* Reduzido de 50px */
+         height: 40px; /* Reduzido de 50px */
+     }
+
+     .sidenav.active .sidebar-links a i {
+         font-size: 20px; /* Reduzido de 24px */
+     }
+
+     .sidenav.active .sidebar-links a::after {
+         font-size: 10px; /* Reduzido de 14px */
+         padding: 5px 8px; /* Ajuste de padding */
+     }
+
+     /* Ajuste extra para tooltips da segunda linha */
+     .sidenav.active .sidebar-links.second-row a::after {
+         top: calc(100% + 5px); /* Ajuste de posição */
+     }
+
+    .content {
+        margin-left: var(--spacing-sm);
+        margin-right: var(--spacing-sm);
+        padding: 40px 40px 0 40px;
+    }
+
+    #mobile-menu-toggle {
+        display: block; /* Mostrar o botão de menu */
+    }
+}
+
+@media (max-width: 480px) {
+    .block-title {
+        display: block;
+        margin-right: 0;
+    }
+
+    .block-title-alt {
+        display: block;
+        white-space: normal;
+    }

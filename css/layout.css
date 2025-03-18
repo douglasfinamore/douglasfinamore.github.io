@@ -484,6 +484,11 @@ strong {
         padding: 40px 40px 0 40px;
     }
 
+    .footer-content p:nth-child(2)::after {
+        content: "\A";
+        white-space: pre;
+    }
+
     #mobile-menu-toggle {
         display: block; /* Mostrar o botão de menu */
     }

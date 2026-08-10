@@ -301,8 +301,11 @@ strong {
 }
 
 /* Sidebar Title */
-.sidenav h1 {
-    font-family: var(--font-title-alt); /* Override heading font */
+.sidenav .website-title {
+    font-family: var(--font-title-alt);
+    font-size: 2em;
+    font-weight: 700;
+    line-height: 1.2;
     color: var(--bg-light);
     margin: var(--spacing-xl) 0 var(--spacing-xl) 0;
 }

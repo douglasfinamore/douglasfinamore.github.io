@@ -457,27 +457,11 @@ strong {
         .sidenav.active {
             display: flex; /* Mostrar quando ativa */
         }
-
-     /* Reduzir tamanho dos botões e tooltips apenas em mobile */
-     .sidenav.active .sidebar-links a {
-         width: 40px; /* Reduzido de 50px */
-         height: 40px; /* Reduzido de 50px */
-     }
-
+    
      .sidenav.active .sidebar-links a i {
          font-size: 20px; /* Reduzido de 24px */
      }
-
-     .sidenav.active .sidebar-links a::after {
-         font-size: 10px; /* Reduzido de 14px */
-         padding: 5px 8px; /* Ajuste de padding */
-     }
-
-     /* Ajuste extra para tooltips da segunda linha */
-     .sidenav.active .sidebar-links.second-row a::after {
-         top: calc(100% + 5px); /* Ajuste de posição */
-     }
-
+     
     .content {
         margin-left: var(--spacing-sm);
         margin-right: var(--spacing-sm);
@@ -492,6 +476,58 @@ strong {
     #mobile-menu-toggle {
         display: block; /* Mostrar o botão de menu */
     }
+    /* --- Mobile: icons become a labelled list --- */
+    .sidenav.active .sidebar-links {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--spacing-xs);
+    }
+
+    .sidenav.active .sidebar-links a {
+        width: 100%;
+        height: auto;
+        min-height: 40px;
+        justify-content: flex-start;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-xs) var(--spacing-sm);
+        box-sizing: border-box;
+    }
+
+    /* Turn the tooltip into a permanent inline label */
+    .sidenav.active .sidebar-links a::after {
+        position: static;
+        opacity: 1;
+        transform: none;
+        background: none;
+        color: inherit;
+        padding: 0;
+        font-size: 14px;
+        z-index: auto;
+    }
+
+    .sidenav.active .sidebar-links.second-row a::after {
+        top: auto;
+        bottom: auto;
+    }
+
+    .sidenav.active .sidebar-links a:hover::after {
+        background: none;
+        color: inherit;
+    }
+
+    /* Give the vertical list room */
+    .sidenav.active .profile-pic {
+        width: 40%;
+        margin-top: var(--spacing-lg);
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .sidenav.active .website-title,
+    .sidenav.active h1 {
+        margin: var(--spacing-base) 0;
+        font-size: 1.5rem;
+    }
+
 }
 
 @media (max-width: 480px) {

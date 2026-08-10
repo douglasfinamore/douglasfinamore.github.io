@@ -1,34 +1,59 @@
-// Toggle Sidebar on Mobile
-document.getElementById('mobile-menu-toggle').addEventListener('click', function () {
-    const sidenav = document.querySelector('.sidenav');
-    sidenav.classList.toggle('active');
-});
+// ===== Mobile menu toggle =====
+function initMenuToggle() {
+    const toggle = document.getElementById('mobile-menu-toggle');
+    if (!toggle) return;
 
-// Load Sidebar Content
+    toggle.addEventListener('click', function () {
+        const sidenav = document.querySelector('.sidenav');
+        if (sidenav) sidenav.classList.toggle('active');
+    });
+}
+
+// ===== Highlight the page you're on =====
+function markCurrentPage() {
+    let here = window.location.pathname.split('/').pop();
+    if (here === '') here = 'index.html';
+
+    document.querySelectorAll('.sidebar-links a').forEach(function (link) {
+        if (link.getAttribute('href') === here) {
+            link.classList.add('is-current');
+            link.setAttribute('aria-current', 'page');
+        }
+    });
+}
+
+// ===== Load the shared sidebar =====
 function loadHTMLContent(url, elementId) {
     const placeholder = document.getElementById(elementId);
+    if (!placeholder) return;
+
     placeholder.innerHTML = '<div class="loading">Loading...</div>';
 
     fetch(url)
-        .then(response => {
+        .then(function (response) {
             if (!response.ok) throw new Error('Network error');
             return response.text();
         })
-        .then(html => {
+        .then(function (html) {
             placeholder.innerHTML = html;
+            markCurrentPage();
         })
-        .catch(error => {
-            placeholder.innerHTML = `<p class="error">Failed to load content</p>`;
+        .catch(function (error) {
+            placeholder.innerHTML = '<p class="error">Failed to load navigation</p>';
             console.error('Error:', error);
         });
 }
 
-// Load Sidebar on DOMContentLoaded to ensure it loads before content
-document.addEventListener('DOMContentLoaded', function () {
-    loadHTMLContent('sidebar.html', 'sidebar-placeholder');
-});
+// ===== E-mail de-obfuscation =====
+function initEmails() {
+    document.querySelectorAll('.email').forEach(function (el) {
+        el.textContent = el.dataset.user + '@' + el.dataset.domain;
+    });
+}
 
-// Email Obfuscation
-document.querySelectorAll('.email').forEach(el => {
-    el.innerHTML = `${el.dataset.user}@${el.dataset.domain}`;
+// ===== Start =====
+document.addEventListener('DOMContentLoaded', function () {
+    initMenuToggle();
+    initEmails();
+    loadHTMLContent('sidebar.html', 'sidebar-placeholder');
 });

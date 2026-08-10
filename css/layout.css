@@ -352,6 +352,16 @@ strong {
         color: var(--dark-bg);
     }
 
+/* Current page indicator — reuses the existing hover treatment */
+.sidebar-links a.is-current {
+    background-color: var(--accent-primary);
+    color: var(--dark-bg);
+}
+
+.sidebar-links a.is-current i {
+    color: var(--dark-bg);
+}
+
 /* === Tooltips for sidebar links === */
 .sidebar-links a {
     position: relative;

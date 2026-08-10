@@ -445,8 +445,13 @@ strong {
 
 /* Abaixo de 768px: esconder a barra lateral e mostrar o botão de menu */
 @media (max-width: 767px) {
+    :root {
+        --sidebar-width: min(320px, 85vw);
+    }
+
     .sidenav {
         display: none; /* Esconder a barra lateral */
+        overflow-y: auto;
     }
 
         .sidenav.active {

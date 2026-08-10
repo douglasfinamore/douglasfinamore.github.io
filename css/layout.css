@@ -387,9 +387,6 @@ strong {
 .sidebar-links a:hover::after {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
-}
-
-.sidebar-links a:hover::after {
     background: var(--accent-primary);
     color: var(--dark-bg);
 }
@@ -402,13 +399,6 @@ strong {
     margin-left: 10px;
     color: var(--accent-primary);
     padding: var(--spacing-sm) 0;
-}
-
-.footer-link {
-    display: inline;
-    text-decoration: underline;
-    font-size: 14px;
-    color: inherit;
 }
 .footer-content a {
     display: inline; /* Garante que seja tratado como um link normal */

@@ -1,0 +1,73 @@
+{% if page.schema == "person" %}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Douglas Finamore",
+            "jobTitle": "Visiting Professor",
+            "alumniOf": {
+                "@type": "EducationalOrganization",
+                "name": "University of São Paulo (USP)",
+                "award": "Capes Thesis Award 2024"
+            },
+            "worksFor": {
+                "@type": "Organization",
+                "name": "CMCC - UFABC",
+                "url": "https://www.cmcc.ufabc.edu.br"
+            },
+            "image": "https://dfinamore.mat.br/assets/images/profile.JPG",
+            "url": "https://dfinamore.mat.br"
+        }
+    </script>
+
+{% elsif page.schema == "publications" %}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Publications",
+            "description": "Research publications by Douglas Finamore in contact geometry, billiard dynamics, and geometric probability.",
+            "url": "https://dfinamore.mat.br/publications.html",
+            "mainEntity": [
+                {
+                    "@type": "ScholarlyArticle",
+                    "name": "Contact foliations and generalised Weinstein conjectures",
+                    "url": "https://doi.org/10.1007/s10455-024-09957-w"
+                },
+                {
+                    "@type": "ScholarlyArticle",
+                    "name": "Quasiconformal contact foliations",
+                    "url": "https://doi.org/10.1007/s00208-023-02687-7"
+                }
+            ]
+        }
+    </script>
+
+{% elsif page.schema == "profact" %}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Professional Activities",
+            "description": "Research projects and academic activities of Douglas Finamore, including work on q-contact structures, billiard rigidity, and Wasserstein spaces.",
+            "url": "https://dfinamore.mat.br/profAct.html",
+            "mainEntity": [
+                {
+                    "@type": "ResearchProject",
+                    "name": "q-contact structures: geometry and dynamics",
+                    "description": "Study of higher-codimension contact structures and their induced dynamics."
+                },
+                {
+                    "@type": "ResearchProject",
+                    "name": "Topics in billiard rigidity",
+                    "description": "Collaborative work on spectral rigidity for hyperbolic billiards."
+                },
+                {
+                    "@type": "ResearchProject",
+                    "name": "Geometry and dynamics on Wasserstein spaces",
+                    "description": "Investigating Wasserstein metrics and their applications to dynamical systems."
+                }
+            ]
+        }
+    </script>
+{% endif %}

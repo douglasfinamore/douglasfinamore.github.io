@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ page.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ========== SEO ========== -->
+    <meta name="description" content="{{ page.description }}">
+    <link rel="canonical" href="{{ page.url | absolute_url }}">
+
+    <meta property="og:type" content="{{ page.og_type | default: 'website' }}">
+    <meta property="og:site_name" content="{{ site.title }}">
+    <meta property="og:title" content="{{ page.title }}">
+    <meta property="og:description" content="{{ page.description }}">
+    <meta property="og:url" content="{{ page.url | absolute_url }}">
+    <meta property="og:image" content="{{ '/assets/images/profile.JPG' | absolute_url }}">
+    <meta name="twitter:card" content="summary">
+
+    {% include schema.html %}
+    <!-- ========== END SEO ========== -->
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/css/layout.css">
+
+    <!-- Scripts -->
+    {% if page.math %}
+    <script type="text/javascript" id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    {% endif %}
+
+    <!-- Preloads -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preload" href="/assets/fonts/Lora-VariableFont_wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/QuattrocentoSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+</head>
+<body>
+    <!-- Hamburger Menu Button -->
+    <button id="mobile-menu-toggle" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar (agora montada aqui, não mais buscada por fetch) -->
+    {% include sidebar.html %}
+
+    <!-- Content -->
+    <div class="content">
+        <main>
+{{ content }}
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/script.js"></script>
+</body>
+</html>

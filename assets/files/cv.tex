@@ -1,0 +1,558 @@
+\documentclass[10pt, letterpaper]{article}
+
+% Packages:
+\usepackage[
+    ignoreheadfoot, % set margins without considering header and footer
+    top=2 cm, % seperation between body and page edge from the top
+    bottom=2 cm, % seperation between body and page edge from the bottom
+    left=2 cm, % seperation between body and page edge from the left
+    right=2 cm, % seperation between body and page edge from the right
+    footskip=1.0 cm, % seperation between body and footer
+]{geometry} % for adjusting page geometry
+\usepackage[explicit]{titlesec} % for customizing section titles
+\usepackage{tabularx} % for making tables with fixed width columns
+\usepackage{array} % tabularx requires this
+\usepackage[dvipsnames]{xcolor} % for coloring text
+\definecolor{primaryColor}{RGB}{0, 79, 144} % define primary color
+\usepackage{enumitem} % for customizing lists
+\usepackage{fontawesome5} % for using icons
+\usepackage{amsmath} % for math
+\usepackage[
+    pdftitle={Douglas Finamore's CV},
+    pdfauthor={Douglas Finamore},
+    pdfcreator={LaTeX with RenderCV},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref} % for links, metadata and bookmarks
+\usepackage[pscoord]{eso-pic} % for floating text on the page
+\usepackage{calc} % for calculating lengths
+\usepackage{bookmark} % for bookmarks
+\usepackage{lastpage} % for getting the total number of pages
+\usepackage{changepage} % for one column entries (adjustwidth environment)
+\usepackage{paracol} % for two and three column entries
+\usepackage{ifthen} % for conditional statements
+\usepackage{needspace} % for avoiding page brake right after the section title
+\usepackage{iftex} % check if engine is pdflatex, xetex or luatex
+
+% Ensure that generate pdf is machine readable/ATS parsable:
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+\fi
+
+\usepackage[default, type1]{sourcesanspro} 
+
+% Some settings:
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt} % remove space before adjustwidth environment
+\pagestyle{empty} % no header or footer
+\setcounter{secnumdepth}{0} % no section numbering
+\setlength{\parindent}{0pt} % no indentation
+\setlength{\topskip}{0pt} % no top skip
+\setlength{\columnsep}{0.15cm} % set column seperation
+\makeatletter
+\let\ps@customFooterStyle\ps@plain % Copy the plain style to customFooterStyle
+\patchcmd{\ps@customFooterStyle}{\thepage}{
+    \color{gray}\textit{\small Page \thepage{} of \pageref*{LastPage}}
+}{}{} % replace number by desired string
+\makeatother
+\pagestyle{customFooterStyle}
+
+\titleformat{\section}{
+    \needspace{4\baselineskip}
+    \Large\color{primaryColor}
+}{
+}{
+}{
+    \textbf{#1}\hspace{0.15cm}\titlerule[0.8pt]\hspace{-0.1cm}
+}[] % section title formatting
+
+\titlespacing{\section}{
+    -1pt
+}{
+    0.3 cm
+}{
+    0.3cm
+} % section title spacing
+
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=0.4 cm + 10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights
+
+\newenvironment{highlightsforbulletentries}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights for bullet entries
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{
+        0.3cm + 0.00001 cm
+    }{
+        0.3cm + 0.00001 cm
+    }
+}{
+    \end{adjustwidth}
+} % new environment for one column entries
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 5 cm}
+    \begin{paracol}{2}
+    \small 
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+} % new environment for two column entries
+
+\newenvironment{twocolentry2}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 7 cm}
+    \begin{paracol}{2}
+    \small 
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+}
+
+\newenvironment{threecolentry}[3][]{
+    \onecolentry
+    \def\thirdColumn{#3}
+    \setcolumnwidth{1 cm, \fill, 5 cm}
+    \begin{paracol}{3}
+    \small 
+    {\raggedright #2} \switchcolumn
+}{
+    \switchcolumn \raggedleft \thirdColumn
+    \end{paracol}
+    \endonecolentry
+} % new environment for three column entries
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\color{primaryColor}\linespread{1.5}
+}{
+    \par\kern\topsep
+} % new environment for the header
+
+\newcommand{\placelastupdatedtext}{% \placetextbox{<horizontal pos>}{<vertical pos>}{<stuff>}
+  \AddToShipoutPictureFG*{% Add <stuff> to current page foreground
+    \put(
+        \LenToUnit{\paperwidth-2 cm-0.3cm+0.05cm},
+        \LenToUnit{\paperheight-1.0 cm}
+    ){\vtop{{\null}\makebox[0pt][c]{
+        \small\color{gray}\textit{Last updated in November 2025}\hspace{\widthof{Last updated in September 2026}}
+    }}}%
+  }%
+}%
+
+% save the original href command in a new command:
+\let\hrefWithoutArrow\href
+
+% new command for external links:
+\renewcommand{\href}[2]{\hrefWithoutArrow{#1}{\ifthenelse{\equal{#2}{}}{ }{#2 }\raisebox{.15ex}{\footnotesize \faExternalLink*}}}
+
+\begin{document}
+    \newcommand{\AND}{\unskip
+        \cleaders\copy\ANDbox\hskip\wd\ANDbox
+        \ignorespaces
+    }
+    \newsavebox\ANDbox
+    \sbox\ANDbox{}
+
+    \placelastupdatedtext
+    \begin{header}
+        \fontsize{30 pt}{30 pt}
+        \textbf{\color{primaryColor}Douglas Finamore, Ph.D.}
+
+        \vspace{0.3 cm}
+
+        \normalsize
+        \mbox{{\footnotesize\faMapMarker*}\hspace*{0.13cm}Campinas - SP, Brazil}%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{mailto:douglas.finamore@pm.me}{{\footnotesize\faEnvelope[regular]}\hspace*{0.13cm}douglas.finamore@pm.me}}%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{https://dfinamore.mat.br}{{\footnotesize\faLink}\hspace*{0.13cm}dfinamore.mat.br}}%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{https://www.linkedin.com/in/douglas-finamore/}{{\footnotesize\faLinkedinIn}\hspace*{0.13cm}douglas-finamore}}%
+    \end{header}
+
+    \vspace{0.3 cm - 0.3 cm}
+
+    \section{About me}
+    \begin{onecolentry}
+        I'm a mathematician working in the fields of Dynamical Systems, Contact Dynamics, and Global Analysis. Specific research areas and mathematical skills include foliations, Lie group actions, contact dynamics, hiperbolic dynamics, billiards, and Wasserstein spaces.
+    \end{onecolentry}
+
+    \section{Education}
+    \begin{threecolentry}{\textbf{PhD}}{\textit{Mar 2019 – Mar 2023}}
+        \textbf{Universidade de São Paulo}, Mathematics
+        \begin{highlights}
+            \item GPA: 4.0/4.0 
+            \item \textbf{Supervisor:} Dr. Carlos Alberto Maquera Apaza
+        \end{highlights}
+    \end{threecolentry}
+
+    \begin{threecolentry}{\textbf{MS}}{\textit{Mar 2017 – Feb 2019}}
+        \textbf{Universidade Estadual de Campinas}, Mathematics
+        \begin{highlights}
+            \item GPA: 4.0/4.0 
+            \item \textbf{Supervisor:} Dr. Gabriel Ponce
+        \end{highlights}
+    \end{threecolentry}
+    
+    \begin{threecolentry}{\textbf{BS}}{\textit{Mar 2012 – Jul 2016 \\ \vspace{0.6cm}  Jun 2015 - Jun 2016}}
+        \textbf{Universidade Federal de Minas Gerais}, Mathematics
+        \begin{highlights}
+            \item GPA: 3.02/4.0 
+            \item \textbf{Exchange year:} Universitetet i Bergen, Bergen - NO  
+        \end{highlights}
+    \end{threecolentry}
+
+    \section{Experience}
+
+    \begin{twocolentry}{\textit{Santo André, BR \\ Jul 2026 - ongoing}}
+        \textbf{CMCC - UFABC}, Visiting professor
+    \end{twocolentry} \vspace{0.1cm} 
+
+    \begin{twocolentry}{\textit{Campinas, BR \\ Nov 2024 – Jul 2026}}
+        \textbf{IMECC - UNICAMP}, Post-doctoral researcher
+    \end{twocolentry} \vspace{0.1cm} 
+    
+    \begin{twocolentry}{\textit{Palaiseau, FR \\ Jan 2024 – Nov 2024}}
+        \textbf{CMLS - École Polytechnique}, Post-doctoral researcher
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{São Carlos, BR \\ Mar 2020 – Nov 2021}}
+        \textbf{ICMC-USP}, Teaching assistant
+        \begin{highlights}
+            \item Calculus I, II, and III
+        \end{highlights}
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{Campinas, BR \\ Feb 2018 – Nov 2018}}
+        \textbf{IMECC - UNICAMP}, Teaching assistant
+        \begin{highlights}
+            \item Calculus III and Advanced Linear Algebra
+        \end{highlights}
+    \end{twocolentry}
+
+    \section{Publications}
+    \subsection{Journal Articles}
+        \begin{twocolentry}{\textit{Preprint}, 2026}
+        \textbf{Pushforward dynamics on Wasserstein spaces and measure rigidity }
+        \\ \vspace{0.10 cm}
+        \mbox{\textbf{\textit{Douglas Finamore}}},
+        \mbox{André Gomes} and 
+        \mbox{Christian Rodrigues}
+        \\ \vspace{0.10 cm}
+        \href{https://arxiv.org/abs/2609.00451}{arXiv}
+    \end{twocolentry} \vspace{0.1cm}
+
+    \begin{twocolentry}{\textit{Preprint}, 2025}
+        \textbf{A CAT(0)-approach to marked length spectral rigidity of Sinai billiards}
+        \\ \vspace{0.10 cm}
+        \mbox{\textbf{\textit{Douglas Finamore}}} and
+        \mbox{Martin Leguil},
+        \\ \vspace{0.10 cm}
+        \href{https://arxiv.org/abs/2510.18983}{arXiv}
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{Ann. Glob. Anal. Geom.}, 2024}
+        \textbf{Contact foliations and generalised Weinstein Conjectures}
+        \\ \vspace{0.10 cm}
+        \mbox{\textbf{\textit{Douglas Finamore}}}
+        \\ \vspace{0.10 cm}
+        \href{https://doi.org/10.1007/s10455-024-09957-w}{10.1007/s10455-024-09957-w}
+    \end{twocolentry} \vspace{0.1cm}
+
+    \begin{twocolentry}{\textit{Math. Ann.}, 2024}
+        \textbf{Quasiconformal contact foliations}
+        \\ \vspace{0.10 cm}
+        \mbox{\textbf{\textit{Douglas Finamore}}}
+        \\ \vspace{0.10 cm}
+        \href{https://doi.org/10.1007/s00208-023-02687-7}{10.1007/s00208-023-02687-7}
+    \end{twocolentry} \vspace{0.1cm}
+
+    \begin{twocolentry}{\textit{Preprint}, 2022}
+        \textbf{A characterization of the n-dimensional torus}
+        \\ \vspace{0.10 cm}
+        \mbox{Elizeu França}, \mbox{\textbf{\textit{Douglas Finamore}}}
+        \\ \vspace{0.10 cm}
+        \href{https://arxiv.org/abs/2205.15807}{arXiv}
+    \end{twocolentry} \vspace{0.1cm}
+
+    \subsection{Miscellaneous}
+    \begin{twocolentry}{\textit{PhD thesis}, 2023}
+        \textbf{Contact foliations: closed leaves and generalised Weinstein conjectures}
+        \\ \vspace{0.10 cm}
+        \mbox{\textbf{\textit{Douglas Finamore}}}
+        \\ \vspace{0.10 cm}
+        \href{https://doi.org/10.11606/T.55.2023.tde-30082023-163143}{10.11606/T.55.2023.tde-30082023-163143}
+    \end{twocolentry} \vspace{0.1cm}
+
+    \begin{twocolentry}{\textit{MS dissertation}, 2019}
+        \textbf{Entropy of pseudogroups and foliations}
+        \\ \vspace{0.10 cm}
+        \mbox{\textbf{\textit{Douglas Finamore}}}
+        \\ \vspace{0.10 cm}
+        \href{https://doi.org/10.47749/T/UNICAMP.2019.1080998}{10.47749/T/UNICAMP.2019.1080998}
+    \end{twocolentry} \vspace{0.1cm}
+
+    \section{Conference talks, posters, and organisation}
+    \subsection{Talks and posters}
+
+    \begin{twocolentry}{\textit{IMECC - UNICAMP \\ Nov 2025}}
+            \textbf{Probability, Geometry, and Dynamics}
+            \begin{highlights}
+                \item \textbf{Talk}: \textit{A CAT(0)-approach to the marked length spectrum rigidity of Sinai billiards}
+            \end{highlights}
+        \end{twocolentry} \vspace{0.1cm}
+
+        \begin{twocolentry}{\textit{IMPA \\ Nov 2025}}
+            \textbf{VIII Escola Brasileira de Sistemas Dinâmicos}
+            \begin{highlights}
+                \item \textbf{Poster}: \textit{Topics in billiard rigidity}
+            \end{highlights}
+        \end{twocolentry} \vspace{0.1cm}
+
+    \begin{twocolentry}{\textit{IMJ-PRG - Sorbonne Université \\ Apr 2024}}
+        \textbf{Séminaire de Systèmes Dynamiques de Jussieu}
+        \begin{highlights}
+            \item \textbf{Talk}: \textit{Estimating the number of closed leaves for contact foliations}
+        \end{highlights}
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{Online event \\ May 2022}}
+        \textbf{Greifswald-Marburg Joint Research Seminar}
+        \begin{highlights}
+            \item \textbf{Talk}: \textit{Closed orbits for contact foliations}
+        \end{highlights}
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{Online event \\ Oct 2021}}
+        \textbf{First Iterations in Dynamical Systems}
+        \begin{highlights}
+            \item \textbf{Talk}: \textit{k-contact structures and their induced foliations: closed orbits and generalised Weinstein conjectures}
+        \end{highlights}
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{ICMC - USP \\ Nov 2020}}
+        \textbf{X Workshop de Teses e Dissertações em Matemática}
+        \begin{highlights}
+            \item \textbf{Talk}: \textit{Generalised \(k\)-contact structures and their induced foliations}
+        \end{highlights}
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{ICEx - UFMG \\ Oct 2019}}
+        \textbf{V Escola Brasileira de Sistemas Dinâmicos}
+        \begin{highlights}
+            \item \textbf{Poster}: \textit{Dynamical Complexity of Foliations: Entropy and a Theorem of Ghys-Langevin-Walczak}
+        \end{highlights}
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{IMECC - UNICAMP \\ Oct 2018}}
+        \textbf{XIII Encontro Científico dos Pós-Graduandos do IMECC}
+        \begin{highlights}
+            \item \textbf{Talk}: \textit{Entropy of foliations and pseudogroups} (in Portuguese)
+        \end{highlights}
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{IMPA \\ Nov 2014}}
+        \textbf{VII Simpósio Nacional / Jornadas de Iniciação Científica IMPA}
+        \begin{highlights}
+            \item \textbf{Talk}: \textit{Representations of finite groups and applications to Quantum Physics} (in Portuguese)
+        \end{highlights}
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{ICEx - UFMG \\ Oct 2013}}
+        \textbf{XXII Semana de Conhecimento e Cultura UFMG}
+        \begin{highlights}
+            \item \textbf{Poster}: \textit{Shor's algorithm for factoring integers} (in Portuguese)
+        \end{highlights}
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \subsection{Conference organisation}
+    \begin{twocolentry}{\textit{IMECC - Unicamp \\ Jan 2020}}
+        \textbf{VI Encontro Paulista de Alunos de Dinâmica}
+        \begin{highlights}
+            \item Marketing and organisation
+        \end{highlights}
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{Online event \\ Feb 2022}}
+        \textbf{I Encontro Paulista da Pós-Graduação em Matemáticas}
+        \begin{highlights}
+            \item Marketing and organisation
+        \end{highlights}
+    \end{twocolentry} \vspace{0.1cm}
+    \begin{twocolentry}{\textit{IMECC - Unicamp \\ Jun 2026}}
+        \textbf{II Encontro Paulista da Pós-Graduação em Matemáticas}
+        \begin{highlights}
+            \item Marketing and organisation
+        \end{highlights}
+    \end{twocolentry} \vspace{0.1cm}
+\pagebreak
+    \section{Research projects}
+    \begin{twocolentry}{\textit{2025 - ongoing }}
+        \textbf{Geometry and dynamics on Wasserstein spaces}
+        \begin{highlights}
+            \item This is a collaborative project with Drs. Christian Rodrigues, André Gomes, and Luiz San Martin, developed within the research group \textit{Geometry and Probability in Dynamical Systems} at the Max Planck Institute.  
+            My focus is on the geometry of the space \(\mathcal{P}(X)\) of probability measures on the metric space \((X, d)\), equipped with the Wasserstein metric \(\mathbf{w}\), and its implications for dynamical systems.  
+            We investigate metric rigidity questions in the isometry group \(\mathrm{Iso}(\mathcal{P}(X), \mathbf{w})\), as well as applications of the Wasserstein metric to continuity problems for Lyapunov exponents, to the study of automorphisms defined by \textit{pushforwards}, and to other potential uses of the geometric structure of \((\mathcal{P}(X), \mathbf{w})\) in ergodic theory.
+
+
+            \item \textit{Role}: Researcher.
+        \end{highlights}
+    \end{twocolentry} \vspace{0.1cm}
+
+    \begin{twocolentry}{\textit{2024 - ongoing }}
+        \textbf{Rigidity of billiards}
+        \begin{highlights}
+            \item This project is a collaboration with Dr. Martin Leguil (École Polytechnique) and extends our work from my postdoctoral stay at CMLS. Broadly, we ask how much information about a hyperbolic billiard can be recovered from periodic data. Specifically, we investigate under what conditions spectral rigidity holds for Sinai billiards: if two billiard tables share the same marked length spectrum, are they necessarily isometric? To answer this, we study the coarse geometry of the phase space of Sinai billiard flows and the extent to which classical rigidity results, such as those of Otal and Croke for negatively and nonpositively curved surfaces, remain valid in the CAT(0) setting.
+            \item \textit{Role}: Main researcher.
+        \end{highlights}
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{2023 - ongoing }}
+        \textbf{\(q\)-contact structures: geometry, dynamics, and applications}
+        \begin{highlights}
+            \item This project is a natural extension of the themes I worked on during my PhD, and focuses on the study of \(q\)-contact structures, objects that generalize classic contact structures, but allowing for codimension higher than one. As a consequence, such structures naturally define actions of the \(q\)-dimensional Euclidean space on their ambient manifolds, whose orbit foliation can then be seen as direct generalization of the flow of the Reeb vector field. There is a myriad of questions one can ask about such structures, most of them in the way of understanding which properties of a contact structure still hold in this generalized scenario. I'm currently concerned with problems of determining what are the interesting (and useful) invariants of such structures, of whether or not contact rigidity holds for them,
+            and in applications of such objects to the efforts of classifying Anosov actions of higher rank groups.
+            \item \textit{Role}: Main researcher.
+        \end{highlights}
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{2022 - 2023 }}
+        \textbf{Dynamics and Topology of Intrinsically Harmonic Forms}
+        \begin{highlights}
+            \item This project is a collaboration with Dr. Elizeu França. We study intrinsically harmonic differential forms and their impact on manifold topology. A key goal is to prove a conjectured “dual” of Tischler’s theorem: that an orientable closed \(n\)-dimensional manifold supporting a closed nowhere-vanishing \((n-1)\)-form fibres over the circle.
+            \item \textit{Role}: Researcher.
+        \end{highlights}
+    \end{twocolentry} \vspace{0.1cm}
+    
+    % \begin{twocolentry}{\textit{2020 - 2023}}
+    %     \textbf{Contact foliations and generalised Weinstein conjectures}
+    %     \begin{highlights}
+    %         \item Investigated higher-dimensional generalizations of the Reeb flow.
+    %         \item Focus on the topology of the leaves and two generalizations of the Weinstein Conjecture.
+    %         \item Established positive results in specific scenarios.
+    %         \item \textit{Role}: Main researcher (Doctorate student).
+    %     \end{highlights}
+    % \end{twocolentry} \vspace{0.1cm}
+    
+    % \begin{twocolentry}{\textit{2017 - 2018}}
+    %     \textbf{Dynamics of foliations and the Seifert conjecture}
+    %     \begin{highlights}
+    %         \item Provided students with a foundation in foliation theory and its applications to dynamical systems.
+    %         \item Topics included holonomy pseudogroups, foliation entropy, Schweitzer’s plug, and techniques for generating aperiodic flows.
+    %         \item \textit{Role}: Master's student.
+    %     \end{highlights}
+    % \end{twocolentry} \vspace{0.1cm}
+    
+    % \begin{twocolentry}{\textit{2013 - 2015}}
+    %     \textbf{Entanglement, Contextuality, and Non-Locality}
+    %     \begin{highlights}
+    %         \item Introduced students to Quantum Mechanics foundations and mathematical modeling.
+    %         \item Delved into Quantum Information Theory topics.
+    %         \item \textit{Role}: Undergraduate student; responsibilities included analyzing articles, writing essays, presenting seminars, and participating in weekly discussions.
+    %     \end{highlights}
+    % \end{twocolentry} \vspace{0.1cm}
+
+    \section{Grants and awards}
+    \begin{twocolentry}{\textit{2024 - ongoing}}
+        \textbf{Max Planck Institute for Sciences Post-Doc Scolarship}, Grant number 82068-24/5729
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{2024}}
+        \textbf{CAPES Thesis Awards 2024 for Brazil's best thesis on Mathematics, Probability, and Statistics}, Honourable Mention 
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{2024}}
+        \textbf{CAPES Math/AmSud Post-Doc Scholarship}, Grant number 88887.898617/2023-00
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{2019 - 2023}}
+        \textbf{CAPES Programa de Excelência Acadêmica (PROEX) Doctorate Scholarship}, Grant number PROEX-11377206/D
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{2017 - 2019}}
+        \textbf{CNPQ Master Studies Scholarship}, Grant number 131555/2017-0
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{2015 - 2016}}
+        \textbf{CAPES Science without Borders Scholarship}, Grant number 88888.853750/2014-00
+    \end{twocolentry} \vspace{0.1cm}
+    
+    \begin{twocolentry}{\textit{2013 - 2015}}
+        \textbf{FAPEMIG Junior Researcher Grant}
+    \end{twocolentry} \vspace{0.1cm}
+
+    \section{Skills}
+    \begin{onecolentry}
+        \textbf{Languages:} Portuguese (native), English (fluent), Norwegian, French (intermediate level), German, Italian (basic skills).
+    \end{onecolentry} \vspace{0.1cm}
+    
+    \begin{onecolentry}
+        \textbf{Coding:} C\#, SQL, JavaScript, Python, LaTeX, HTML.
+    \end{onecolentry} \vspace{0.1cm}        
+
+    \begin{onecolentry}
+        \textbf{Technologies:} .NET, Visual Studio, TexWorks, Wolfram Mathematica, MATLAB, Geogebra.
+    \end{onecolentry} \vspace{0.1cm} 
+
+    \begin{onecolentry}
+        \textbf{Misc:} Academic research, teaching, training, consultation, \LaTeX\ typesetting, and publishing.
+    \end{onecolentry} \vspace{0.1cm}    
+
+    \section{References}
+
+\begin{twocolentry2}{\textit{Department of Mathematics \\ ICMC - USP}}
+    \textbf{Dr. Carlos Maquera}
+    \begin{highlights}
+        \item Av. Trabalhador São-Carlense São Carlos, SP
+        \item \href{mailto:cmaquera@icmc.usp}{cmaquera@icmc.usp}
+    \end{highlights}
+\end{twocolentry2} \vspace{0.1cm}
+
+\begin{twocolentry2}{\textit{Centre de Mathématiques Laurent Schwartz \\ École Polytechnique}}
+    \textbf{Dr. Martin Leguil}
+    \begin{highlights}
+        \item 91128 Palaiseau Cedex, France
+        \item \href{mailto:martin.leguil@polytechnique.edu}{martin.leguil@polytechnique.edu}
+    \end{highlights}
+\end{twocolentry2} \vspace{0.1cm}
+
+\begin{twocolentry2}{\textit{Department of Applied Mathematics \\ IMECC - UNICAMP}}
+    \textbf{Dr. Christian Rodrigues}
+    \begin{highlights}
+        \item Pça. Sérgio Buarque de Holanda, Campinas, SP
+        \item \href{mailto:rodrigues@ime.unicamp.br}{rodrigues@ime.unicamp.br}
+    \end{highlights}
+\end{twocolentry2} \vspace{0.1cm}
+\end{document}

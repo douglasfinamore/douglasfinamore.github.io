@@ -174,6 +174,10 @@ strong {
         margin-bottom: 2.5rem;
     }
 
+    .content .block-item {
+        margin-bottom: 0.8rem; /* Espaçamento entre itens; colapsa com a margem do último filho */
+    }
+
     /* Títulos alternativos */
     .content .h2-alt,
     .content .h3-alt,
